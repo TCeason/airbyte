@@ -310,7 +310,7 @@ flowchart TD
     entrypoint[[For each selected connector]]
     subgraph static ["Static code analysis"]
       qa[Run QA checks]
-      sem["Check version follows semantic versionning"]
+      sem["Check version follows semantic versioning"]
       incr["Check version is incremented"]
       metadata_validation["Run metadata validation on metadata.yaml"]
       sem --> incr
@@ -319,7 +319,7 @@ flowchart TD
         build[Build connector docker image]
         unit[Run unit tests]
         integration[Run integration tests]
-        pyairbyte_validation[Run PyAirbyte validation tests]
+        pyairbyte_validation[Python CLI smoke tests via PyAirbyte]
         cat[Run connector acceptance tests]
         secret[Load connector configuration]
 
@@ -552,7 +552,7 @@ Bump source-openweather:
 
 | Argument          | Description                                                            |
 | ----------------- | ---------------------------------------------------------------------- |
-| `BUMP_TYPE`       | major, minor, patch, or version:<explicit-version>                     |
+| `BUMP_TYPE`       | major, minor, patch, rc, or version:<explicit-version>                 |
 | `CHANGELOG_ENTRY` | The changelog entry that will get added to the connector documentation |
 
 #### Options
@@ -560,6 +560,7 @@ Bump source-openweather:
 | Option      | Description                                                                               |
 | ----------- | ----------------------------------------------------------------------------------------- |
 | --pr-number | Explicitly set the PR number in the changelog entry, a placeholder will be set otherwise. |
+| --rc        | Bump the version by the specified bump type and append the release candidate suffix.      |
 
 ### <a id="connectors-upgrade-cdk"></a>`connectors upgrade-cdk` command
 
@@ -850,6 +851,12 @@ airbyte-ci connectors --language=low-code migrate-to-manifest-only
 
 | Version | PR                                                         | Description                                                                                                                  |
 | ------- | ---------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| 4.45.0  | [#48866](https://github.com/airbytehq/airbyte/pull/48866)  | Adds `--rc` option to `bump-version` command                                                   |
+| 4.44.2  | [#48725](https://github.com/airbytehq/airbyte/pull/48725)  | up-to-date: specific changelog comment for base image upgrade to rootless.                                                   |
+| 4.44.1  | [#48836](https://github.com/airbytehq/airbyte/pull/48836)  | Manifest-only connector build: give ownership of copied file to the current user.                                            |
+| 4.44.0  | [#48818](https://github.com/airbytehq/airbyte/pull/48818)  | Use local CDK or CDK ref for manifest only connector build.                                                                  |
+| 4.43.1  | [#48824](https://github.com/airbytehq/airbyte/pull/48824)  | Allow uploading CI reports to GCS with fewer permissions set.                                                                |
+| 4.43.0  | [#36545](https://github.com/airbytehq/airbyte/pull/36545)  | Switch to `airbyte` user when available in Python base image.                                                                |
 | 4.42.2  | [#48404](https://github.com/airbytehq/airbyte/pull/48404)  | Include `advanced_auth` in spec migration for manifest-only pipeline                                                         |
 | 4.42.1  | [#47316](https://github.com/airbytehq/airbyte/pull/47316)  | Connector testing: skip incremental acceptance test when the connector is not released.                                      |
 | 4.42.0  | [#47386](https://github.com/airbytehq/airbyte/pull/47386)  | Version increment check: make sure consecutive RC remain on the same version.                                                |
