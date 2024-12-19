@@ -40,13 +40,13 @@ class MySQLBooleanConverter : CustomConverter<SchemaBuilder, RelationalColumn> {
                 } else if (field.hasDefaultValue()) {
                     field.defaultValue()
                 } else {
-                    null
+                    false
                 }
             }
             when (x) {
                 is Boolean -> x
                 is String -> x.toBoolean()
-                is Int -> x != 0
+                is Number -> x != 0
                 else -> throw IllegalArgumentException("Unsupported type: ${x::class}")
             }
         }
